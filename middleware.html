@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Middleware no Express.js</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+  <style>
+    body {
+      padding: 3px;
+      background-color: #f9f9f9;
+    }
+    pre {
+      background: #1b1c1d;
+      color: #f1f1f1;
+      padding: 1em;
+      border-radius: 8px;
+      overflow-x: auto;
+    }
+    code {
+      font-family: monospace;
+    }
+
+    .home-icon {
+      height: 32px;
+      width: auto;
+      margin-left: 1em;
+      transition: transform 0.2s;
+    }
+    .home-icon:hover {
+      transform: scale(1.1);
+    }
+
+  </style>
+</head>
+<body>
+
+  <div class="ui container">
+    <div class="ui teal header" style="display: flex; justify-content: space-between; align-items: center;">
+        <span>Middleware no Express.js</span>
+        <a href="index.html">
+          <img src="imgs/home.png" alt="Home" class="home-icon">
+        </a>
+    </div>
+      
+
+    
+
+    <div class="ui segment">
+      <h2 class="ui header">🧠 O que é Middleware?</h2>
+      <p>
+        Middleware é uma função intermediária que é executada durante o ciclo de requisição e resposta no Express.js. 
+        Ela tem acesso ao objeto <code>req</code> (requisição), <code>res</code> (resposta) e à função <code>next</code>, que chama o próximo middleware.
+      </p>
+    </div>
+
+    <div class="ui segment">
+      <h2 class="ui header">⚙️ Como funciona?</h2>
+      <p>
+        O Express processa as requisições em cadeia, passando por cada middleware registrado na ordem em que foram definidos. 
+        Eles podem modificar a requisição, resposta, ou até encerrar o ciclo sem seguir para a próxima função.
+      </p>
+      <ul class="ui list">
+        <li>📌 Verificação de autenticação</li>
+        <li>📌 Validação de dados</li>
+        <li>📌 Registro de logs</li>
+        <li>📌 Manipulação de erros</li>
+      </ul>
+    </div>
+
+    <div class="ui segment">
+      <h2 class="ui header">💡 Exemplo no Express.js</h2>
+      <p>Veja abaixo um exemplo de middleware que exibe informações da requisição no console:</p>
+      <pre><code>
+// servidor.js
+const express = require('express');
+const app = express();
+
+// Middleware de log
+app.use((req, res, next) => {
+  console.log(`Requisição: ${req.method} ${req.url}`);
+  next();
+});
+
+app.get('/', (req, res) => {
+  res.send('Bem-vindo!');
+});
+
+app.listen(3000, () => {
+  console.log('Servidor rodando na porta 3000');
+});
+      </code></pre>
+    </div>
+
+    <div class="ui message teal">
+      <strong>Dica:</strong> Middlewares podem ser reutilizados em várias rotas e facilitam a organização do código!
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+</body>
+</html>
